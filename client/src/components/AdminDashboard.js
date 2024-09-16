@@ -14,6 +14,7 @@ import { Bar, Pie } from "react-chartjs-2";
 import api from "../utils/api";
 import { FaUsers, FaCode, FaChartLine, FaPlus } from "react-icons/fa";
 
+// Registering chart components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -24,6 +25,7 @@ ChartJS.register(
   ArcElement
 );
 
+// Memoized chart component for optimized re-renders
 const Chart = React.memo(({ data, type, options }) => {
   const ChartComponent = type === "bar" ? Bar : Pie;
   return <ChartComponent data={data} options={options} />;
@@ -37,6 +39,7 @@ function AdminDashboard() {
     fetchStats();
   }, []);
 
+  // Fetch stats from the API
   const fetchStats = async () => {
     try {
       const response = await api.get("/admin/stats");
@@ -46,26 +49,34 @@ function AdminDashboard() {
     }
   };
 
+  // Static or dynamic user/problem data
   const userProblemData = {
     labels: ["Users", "Problems"],
     datasets: [
       {
-        data: [stats.totalUsers, stats.totalProblems],
+        // Use static data if stats are not available yet
+        data: [stats.totalUsers || 120, stats.totalProblems || 80],
         backgroundColor: ["#10B981", "#3B82F6"],
       },
     ],
   };
 
+  // Static or dynamic difficulty data
   const difficultyData = {
     labels: ["Easy", "Medium", "Hard"],
     datasets: [
       {
-        data: [stats.easyProblems, stats.mediumProblems, stats.hardProblems],
+        data: [
+          stats.easyProblems || 40,
+          stats.mediumProblems || 20,
+          stats.hardProblems || 10,
+        ],
         backgroundColor: ["#10B981", "#F59E0B", "#EF4444"],
       },
     ],
   };
 
+  // Chart options for consistent look and feel
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -79,12 +90,15 @@ function AdminDashboard() {
     },
   };
 
+  // Rendering the dashboard layout
   const renderDashboard = () => (
     <div className="flex flex-col items-center">
       <h2 className="text-3xl font-bold mb-12 text-green-400">
         Dashboard Overview
       </h2>
+      {/* Chart Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 w-full">
+        {/* Users vs Problems Chart */}
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
           <h3 className="text-xl font-semibold mb-4 text-green-400">
             Users vs Problems
@@ -93,6 +107,7 @@ function AdminDashboard() {
             <Chart data={userProblemData} type="pie" options={chartOptions} />
           </div>
         </div>
+        {/* Problem Difficulty Chart */}
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
           <h3 className="text-xl font-semibold mb-4 text-green-400">
             Problem Difficulty
@@ -102,6 +117,8 @@ function AdminDashboard() {
           </div>
         </div>
       </div>
+
+      {/* Admin Actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
         <AdminButton
           icon={<FaUsers className="mr-2" />}
@@ -141,6 +158,7 @@ function AdminDashboard() {
   );
 }
 
+// AdminButton component
 const AdminButton = ({ icon, text, onClick }) => (
   <button
     onClick={onClick}
