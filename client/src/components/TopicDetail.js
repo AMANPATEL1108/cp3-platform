@@ -217,7 +217,7 @@ const TopicDetail = () => {
               {topic.name}
             </h2>
             <div className="bg-gray-800 rounded-lg p-6 mb-8 shadow-lg">
-              <div
+              <divin 
                 className="text-gray-300 mb-6 space-y-4"
                 dangerouslySetInnerHTML={{ __html: topic.detail }}
               />
