@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion"; // Importing Framer Motion for animations
 import api from "../utils/api";
 
 function ManageProblems() {
@@ -32,47 +33,82 @@ function ManageProblems() {
     }
   };
 
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
-      <h2 className="text-3xl font-semibold mb-6 text-gray-800">
+    <motion.div
+      className="p-8 bg-gray-100 min-h-screen"
+      initial="hidden"
+      animate="visible"
+      variants={{
+        visible: { transition: { staggerChildren: 0.2 } }, // Staggered animations
+      }}
+    >
+      <motion.h2
+        className="text-3xl font-semibold mb-6 text-gray-800"
+        variants={fadeInUp} // Animate the heading
+      >
         Manage Problems
-      </h2>
+      </motion.h2>
+
       {problems.length > 0 ? (
-        <table className="min-w-full bg-white rounded-lg shadow-lg">
+        <motion.table
+          className="min-w-full bg-white rounded-lg shadow-lg table-auto"
+          variants={fadeInUp} // Animate the table
+        >
           <thead>
             <tr className="text-left bg-gray-200">
-              <th className="p-4">Title</th>
-              <th className="p-4">Difficulty</th>
-              <th className="p-4">Actions</th>
+              <th className="p-4 text-left w-1/2">Title</th>
+              <th className="p-4 text-center w-1/4">Difficulty</th>
+              <th className="p-4 text-center w-1/4">Actions</th>
             </tr>
           </thead>
           <tbody>
             {problems.map((problem) => (
-              <tr key={problem._id} className="border-t">
-                <td className="p-4">{problem.title}</td>
-                <td className="p-4">{problem.difficulty}</td>
-                <td className="p-4">
-                  <button
+              <motion.tr
+                key={problem._id}
+                className="border-t"
+                variants={fadeInUp} // Animate each row
+              >
+                <td className="p-4 text-left">{problem.title}</td>
+                <td className="p-4 text-center">{problem.difficulty}</td>
+                <td className="p-4 text-center">
+                  <motion.button
                     className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                    whileHover={{ scale: 1.05 }} // Animation on hover
+                    whileTap={{ scale: 0.95 }} // Animation on click
                     onClick={() => handleDeleteProblem(problem._id)}
                   >
                     Delete
-                  </button>
+                  </motion.button>
                 </td>
-              </tr>
+              </motion.tr>
             ))}
           </tbody>
-        </table>
+        </motion.table>
       ) : (
-        <p>No problems found.</p>
+        <motion.p
+          className="text-gray-600"
+          variants={fadeInUp} // Animate the no problems message
+        >
+          No problems found.
+        </motion.p>
       )}
-      <button
+
+      <motion.button
         className="mt-6 bg-indigo-500 text-white px-6 py-2 rounded-lg hover:bg-indigo-600"
+        whileHover={{ scale: 1.05 }} // Animation on hover
+        whileTap={{ scale: 0.95 }} // Animation on click
         onClick={() => navigate("/admin")}
+        variants={fadeInUp} // Animate the go back button
       >
         Go Back
-      </button>
-    </div>
+      </motion.button>
+    </motion.div>
   );
 }
 

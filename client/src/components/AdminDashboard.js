@@ -11,8 +11,9 @@ import {
   ArcElement,
 } from "chart.js";
 import { Bar, Pie } from "react-chartjs-2";
+import { motion } from "framer-motion";
 import api from "../utils/api";
-import { FaUsers, FaCode, FaChartLine, FaPlus } from "react-icons/fa";
+import { FaUsers, FaCode, FaPlus } from "react-icons/fa";
 
 // Registering chart components
 ChartJS.register(
@@ -54,7 +55,6 @@ function AdminDashboard() {
     labels: ["Users", "Problems"],
     datasets: [
       {
-        // Use static data if stats are not available yet
         data: [stats.totalUsers || 120, stats.totalProblems || 80],
         backgroundColor: ["#10B981", "#3B82F6"],
       },
@@ -90,36 +90,84 @@ function AdminDashboard() {
     },
   };
 
-  // Rendering the dashboard layout
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1.5, ease: "easeOut" },
+    },
+  };
+
+  const fadeInLeft = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 1.5, ease: "easeOut" },
+    },
+  };
+
+  const scaleButton = {
+    hover: { scale: 1.05, transition: { duration: 0.3 } },
+    tap: { scale: 0.95, transition: { duration: 0.2 } },
+  };
+
+  // Rendering the dashboard layout with animations
   const renderDashboard = () => (
-    <div className="flex flex-col items-center">
-      <h2 className="text-3xl font-bold mb-12 text-green-400">
+    <motion.div
+      className="flex flex-col items-center"
+      initial="hidden"
+      animate="visible"
+      variants={{
+        visible: { transition: { staggerChildren: 0.5 } },
+      }}
+    >
+      <motion.h2
+        className="text-3xl font-bold mb-12 text-green-400"
+        variants={fadeInUp}
+      >
         Dashboard Overview
-      </h2>
+      </motion.h2>
+
       {/* Chart Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 w-full">
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 w-full"
+        variants={fadeInLeft}
+      >
         {/* Users vs Problems Chart */}
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <motion.div
+          className="bg-gray-800 p-6 rounded-lg shadow-lg"
+          variants={fadeInUp}
+        >
           <h3 className="text-xl font-semibold mb-4 text-green-400">
             Users vs Problems
           </h3>
           <div className="h-64">
             <Chart data={userProblemData} type="pie" options={chartOptions} />
           </div>
-        </div>
+        </motion.div>
+
         {/* Problem Difficulty Chart */}
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <motion.div
+          className="bg-gray-800 p-6 rounded-lg shadow-lg"
+          variants={fadeInUp}
+        >
           <h3 className="text-xl font-semibold mb-4 text-green-400">
             Problem Difficulty
           </h3>
           <div className="h-64">
             <Chart data={difficultyData} type="pie" options={chartOptions} />
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Admin Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full"
+        variants={fadeInLeft}
+      >
         <AdminButton
           icon={<FaUsers className="mr-2" />}
           text="Manage Users"
@@ -140,8 +188,8 @@ function AdminDashboard() {
           text="Add Problem"
           onClick={() => navigate("/admin/add-problem")}
         />
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 
   return (
@@ -160,13 +208,13 @@ function AdminDashboard() {
 
 // AdminButton component
 const AdminButton = ({ icon, text, onClick }) => (
-  <button
+  <motion.button
     onClick={onClick}
     className="w-full bg-gray-800 text-green-400 py-4 px-6 rounded-lg hover:bg-gray-700 transition duration-300 flex items-center justify-center"
   >
     {icon}
     {text}
-  </button>
+  </motion.button>
 );
 
 export default AdminDashboard;
