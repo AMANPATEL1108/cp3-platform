@@ -13,7 +13,7 @@ import {
 import { Bar, Pie } from "react-chartjs-2";
 import { motion } from "framer-motion";
 import api from "../utils/api";
-import { FaUsers, FaCode, FaPlus } from "react-icons/fa";
+import { FaUsers, FaCode, FaPlus, FaSignOutAlt } from "react-icons/fa";
 
 // Registering chart components
 ChartJS.register(
@@ -48,6 +48,10 @@ function AdminDashboard() {
     } catch (error) {
       console.error("Error fetching stats:", error);
     }
+  };
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken"); // Remove admin token from local storage
+    navigate("/admin/login"); // Navigate to login page
   };
 
   // Static or dynamic user/problem data
@@ -194,10 +198,16 @@ function AdminDashboard() {
 
   return (
     <div className="bg-gray-900 text-gray-100 font-mono min-h-screen">
-      <header className="bg-gray-800 py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-green-400">Admin Dashboard</h1>
-        </div>
+      <header className="bg-gray-800 py-10 px-4 sm:px-6 lg:px-8 relative">
+        <h1 className="text-3xl font-bold text-green-400 text-center absolute inset-x-0 mx-auto -my-4">
+          Admin Dashboard
+        </h1>
+        <button
+          onClick={handleLogout}
+          className="absolute top-6 right-4 text-gray-100 bg-red-600 hover:bg-red-700 py-2 px-4 rounded-lg flex items-center"
+        >
+          <FaSignOutAlt className="mr-2" /> Logout
+        </button>
       </header>
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {renderDashboard()}
