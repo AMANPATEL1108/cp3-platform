@@ -211,6 +211,7 @@ const TopicDetail = () => {
       </header>
 
       <main className="container mx-auto px-6 py-8">
+        {topic ? (
           <>
             <h2 className="text-4xl font-bold mb-6 text-green-400">
               {topic.name}
