@@ -7,7 +7,6 @@ const Topics = () => {
   const [expandedTopic, setExpandedTopic] = useState(null);
   const navigate = useNavigate();
 
-  // Static topics data for DSA
   const staticTopics = [
     {
       _id: "1",
