@@ -2,35 +2,33 @@ import React, { useState, useEffect } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
+// GitHub API URL (Update this URL to match your GitHub file's actual URL)
+const GITHUB_API_URL =
+  "https://api.github.com/repos/AMANPATEL1108/AceDsaJson/contents/topics.json";
+
 const Topics = () => {
   const [topics, setTopics] = useState([]);
   const [expandedTopic, setExpandedTopic] = useState(null);
   const navigate = useNavigate();
 
-  const staticTopics = [
-    {
-      _id: "1",
-      name: "Array",
-      content:
-        "<p>Arrays are a collection of items stored at contiguous memory locations. They are the simplest data structures that store items of the same type.</p>",
-    },
-    {
-      _id: "2",
-      name: "LinkedList",
-      content:
-        "<p>Linked List is a linear data structure, in which the elements are not stored at contiguous memory locations. The elements in a linked list are linked using pointers.</p>",
-    },
-    {
-      _id: "3",
-      name: "Tree",
-      content:
-        "<p>A tree is a non-linear data structure, where a node contains data and a reference (or link) to other nodes, which are called children. Common types of trees include binary trees, binary search trees, AVL trees, and more.</p>",
-    },
-  ];
-
   useEffect(() => {
-    // Mimic API fetching or use static topics
-    setTopics(staticTopics);
+    // Fetch topics from GitHub file
+    const fetchTopics = async () => {
+      try {
+        const response = await fetch(GITHUB_API_URL);
+        const data = await response.json();
+
+        // Decode content and parse the topics
+        const decodedContent = atob(data.content);
+        const parsedTopics = JSON.parse(decodedContent);
+
+        setTopics(parsedTopics);
+      } catch (err) {
+        console.error("Error fetching topics:", err);
+      }
+    };
+
+    fetchTopics();
   }, []);
 
   const toggleTopic = (topicId) => {
@@ -65,10 +63,9 @@ const Topics = () => {
                 )}
               </div>
               {expandedTopic === topic._id && (
-                <div
-                  className="p-4 bg-gray-700"
-                  dangerouslySetInnerHTML={{ __html: topic.content }}
-                />
+                <div className="p-4 bg-gray-700">
+                  <p>Click "Read More" for detailed content.</p>
+                </div>
               )}
               <button
                 onClick={() => redirectToTopicDetail(topic._id)}
