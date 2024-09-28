@@ -1,75 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-// GitHub API URL (Update this URL to match your GitHub file's actual URL)
-const GITHUB_API_URL =
-  "https://api.github.com/repos/AMANPATEL1108/AceDsaJson/contents/topics.json";
-
 const Topics = () => {
-  const [topics, setTopics] = useState([]);
-  const [expandedTopic, setExpandedTopic] = useState(null);
+  const [topics] = useState([
+    { name: "Array", _id: "array" },
+    { name: "Tree", _id: "tree" },
+    { name: "Linked List", _id: "linkedlist" },
+  ]);
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Fetch topics from GitHub file
-    const fetchTopics = async () => {
-      try {
-        const response = await fetch(GITHUB_API_URL);
-        const data = await response.json();
-
-        // Decode content and parse the topics
-        const decodedContent = atob(data.content);
-        const parsedTopics = JSON.parse(decodedContent);
-
-        setTopics(parsedTopics);
-      } catch (err) {
-        console.error("Error fetching topics:", err);
-      }
-    };
-
-    fetchTopics();
-  }, []);
-
-  const toggleTopic = (topicId) => {
-    setExpandedTopic(expandedTopic === topicId ? null : topicId);
-  };
-
-  const redirectToTopicDetail = (topicId) => {
+  const handleTopicDetailRedirect = (topicId) => {
     navigate(`/topic/${topicId}`);
   };
 
   return (
     <div className="bg-gray-900 text-gray-100 font-mono min-h-screen">
       <div className="max-w-4xl mx-auto px-4 py-12">
-        <h2 className="text-3xl font-bold mb-8 text-green-400">DSA Topics</h2>
+        <h2 className="text-3xl font-bold mb-8 text-green-400 text-center">
+          Topics
+        </h2>
         <ul className="space-y-4">
           {topics.map((topic) => (
             <li
               key={topic._id}
-              className="bg-gray-800 rounded-lg overflow-hidden shadow-md"
+              className="bg-gray-800 rounded-lg overflow-hidden shadow-md p-4 flex justify-between items-center"
             >
-              <div
-                className="flex justify-between items-center p-4 cursor-pointer hover:bg-gray-700 transition duration-300"
-                onClick={() => toggleTopic(topic._id)}
-              >
-                <h3 className="text-xl font-semibold text-green-400">
-                  {topic.name}
-                </h3>
-                {expandedTopic === topic._id ? (
-                  <FaChevronUp className="text-green-400" />
-                ) : (
-                  <FaChevronDown className="text-green-400" />
-                )}
-              </div>
-              {expandedTopic === topic._id && (
-                <div className="p-4 bg-gray-700">
-                  <p>Click "Read More" for detailed content.</p>
-                </div>
-              )}
+              <h3 className="text-xl font-semibold text-green-400">
+                {topic.name}
+              </h3>
               <button
-                onClick={() => redirectToTopicDetail(topic._id)}
-                className="w-full bg-green-500 text-gray-900 mt-2 py-2 hover:bg-green-600 transition duration-300"
+                className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-400 transition"
+                onClick={() => handleTopicDetailRedirect(topic._id)}
               >
                 Read More
               </button>

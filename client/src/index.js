@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css"; // This should import the Tailwind CSS file
 import App from "./App";
+import "./App.css"; // Ensure this line is present
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

@@ -22,11 +22,14 @@ import ManageProblems from "./components/ManageProblems";
 import TopicDetail from "./components/TopicDetail"; // Import the new TopicDetail component
 import "./App.css";
 
+
+// Protected routes for admin
 function ProtectedAdminRoute({ children }) {
   const adminToken = localStorage.getItem("adminToken");
   return adminToken ? children : <Navigate to="/admin/login" />;
 }
 
+// Protected routes for user
 function ProtectedUserRoute({ children }) {
   const userToken = localStorage.getItem("token");
   return userToken ? children : <Navigate to="/login" />;
@@ -38,15 +41,17 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {!isAdminRoute && <Navbar />}{" "}
         {/* Only show Navbar if not on admin routes */}
+        {!isAdminRoute && <Navbar />}
         <Toaster position="top-right" />
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/problems" element={<Problems />} />
           <Route path="/topics" element={<Topics />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
           {/* User Dashboard Route */}
           <Route
             path="/dashboard"
@@ -56,6 +61,7 @@ function App() {
               </ProtectedUserRoute>
             }
           />
+
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route
@@ -70,6 +76,7 @@ function App() {
           <Route path="/admin/add-problem" element={<AddProblem />} />
           <Route path="/admin/manage-users" element={<ManageUsers />} />
           <Route path="/admin/manage-problems" element={<ManageProblems />} />
+
           {/* New Route for Topic Details */}
           <Route path="/topic/:topicId" element={<TopicDetail />} />
         </Routes>

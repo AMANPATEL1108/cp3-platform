@@ -1,38 +1,205 @@
-.App {
-  text-align: center;
+/* App.css */
+
+/* General styles for the markdown container */
+.markdown {
+  line-height: 1.6; /* Improve readability */
+  color: #e0e0e0; /* Light text color for better contrast */
+  padding: 20px; /* Padding for the markdown container */
+  max-width: 800px; /* Limit the maximum width for better readability */
+  margin: 0 auto; /* Center align the markdown container */
+  /* background-color: #1a1a1a; Dark background for better contrast */
+  border-radius: 8px; /* Rounded corners for the container */
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); Subtle shadow for depth */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Title styles */
+.markdown h1 {
+  font-size: 2.5rem; /* Adjust font size for h1 */
+  color: #4caf50; /* Different color for h1 */
+  margin-top: 1.5rem; /* Margin for top spacing */
+  margin-bottom: 1rem; /* Margin for bottom spacing */
+  border-bottom: 2px solid #4caf50; /* Underline effect for h1 */
+  padding-bottom: 10px; /* Space below the heading */
+  text-align: left; /* Align title to the left */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Table of Contents styles */
+.table-of-contents {
+  margin: 1.5rem 0; /* Margin for spacing */
+  padding-left: 20px; /* Indent table of contents */
+  border-left: 4px solid #76ff03; /* Left border for emphasis */
+  list-style-type: none; /* Remove default list styling */
+}
+
+/* Headings */
+.markdown h2 {
+  font-size: 2rem; /* Adjust font size for h2 */
+  color: #76ff03; /* Different color for h2 */
+  margin-top: 1.5rem; /* Margin for top spacing */
+  margin-bottom: 0.75rem; /* Margin for bottom spacing */
+  border-bottom: 1px solid #76ff03; /* Underline effect for h2 */
+  padding-bottom: 5px; /* Space below the heading */
+}
+
+.markdown h3 {
+  font-size: 1.75rem; /* Adjust font size for h3 */
+  color: #bbdefb; /* Different color for h3 */
+  margin-top: 1.5rem; /* Margin for top spacing */
+  margin-bottom: 0.5rem; /* Margin for bottom spacing */
+}
+
+/* Paragraph styles */
+.markdown p {
+  text-align: justify; /* Justify text */
+  margin-bottom: 1rem; /* Space between paragraphs */
+}
+
+/* List styles */
+.markdown ul,
+.markdown ol {
+  padding-left: 20px; /* Indent lists */
+  margin: 1rem 0; /* Margin for spacing */
+}
+
+.markdown li {
+  margin-bottom: 0.5rem; /* Space between list items */
+}
+
+/* Link styles */
+.markdown a {
+  color: #1e90ff; /* Style links */
+  text-decoration: underline;
+}
+
+/* Image styles */
+.markdown img {
+  max-width: 100%; /* Responsive images */
+  height: auto;
+  border-radius: 4px; /* Rounded corners for images */
+  margin: 10px 0; /* Margin for spacing */
+}
+
+/* Code styles */
+.markdown code {
+  /* background: #333; Background for inline code */
+  color: #f8f8f2; /* Code text color */
+  padding: 2px 4px; /* Padding for inline code */
+  border-radius: 3px; /* Rounded corners */
+}
+
+/* Preformatted text (code blocks) */
+.markdown pre {
+  background: #272822; /* Background for code blocks */
+  padding: 10px; /* Padding for code blocks */
+  overflow: auto; /* Allow scrolling for long code */
+  border-radius: 5px; /* Rounded corners */
+  margin: 1rem 0; /* Margin for spacing */
+}
+
+/* Blockquote styles */
+.markdown blockquote {
+  border-left: 4px solid #76ff03; /* Left border for blockquotes */
+  padding-left: 15px; /* Padding for the content */
+  color: #b0bec5; /* Color for blockquote text */
+  margin: 1rem 0; /* Margin for spacing */
+  font-style: italic; /* Italicize blockquote text */
+}
+
+/* Table styles */
+.markdown table {
+  width: 100%; /* Full width for tables */
+  border-collapse: collapse; /* Collapse borders */
+  margin: 1rem 0; /* Margin for spacing */
+}
+
+.markdown th,
+.markdown td {
+  border: 1px solid #444; /* Border for table cells */
+  padding: 8px; /* Padding for table cells */
+  text-align: left; /* Align text to the left */
+}
+
+.markdown th {
+  background-color: #444; /* Background for table headers */
+  color: #fff; /* Text color for table headers */
+}
+
+/* Topics Component Styles */
+.topics-container {
+  background-color: #1a1a1a; /* Dark background to match theme */
+  color: #e0e0e0; /* Light text color */
+  font-family: "Courier New", monospace; /* Monospace font for a coding feel */
+  min-height: 100vh; /* Full height */
+}
+
+.topics-header {
+  text-align: center; /* Centered header */
+  margin-bottom: 2rem; /* Space below header */
+}
+
+.topics-title {
+  font-size: 2.5rem; /* Large title */
+  color: #4caf50; /* Green color for title */
+}
+
+.topics-list {
+  list-style-type: none; /* Remove default list style */
+  padding: 0; /* Remove default padding */
+}
+
+.topic-item {
+  background-color: #333; /* Dark background for items */
+  border-radius: 8px; /* Rounded corners */
+  padding: 15px; /* Padding for items */
+  margin-bottom: 1rem; /* Space between items */
+  display: flex; /* Flexbox layout */
+  justify-content: space-between; /* Space between title and button */
+  align-items: center; /* Center align items */
+  transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.topic-item:hover {
+  background-color: #444; /* Change background on hover */
+}
+
+.topic-title {
+  font-size: 1.5rem; /* Font size for topic title */
+  color: #76ff03; /* Green color for topic title */
+}
+
+.read-more-button {
+  background-color: #4caf50; /* Green button background */
+  color: #ffffff; /* White text color */
+  padding: 10px 15px; /* Padding for button */
+  border-radius: 5px; /* Rounded corners for button */
+  border: none; /* Remove default border */
+  cursor: pointer; /* Pointer cursor for buttons */
+  transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.read-more-button:hover {
+  background-color: #76ff03; /* Change button background on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .markdown h1 {
+    font-size: 2rem; /* Adjust font size for smaller screens */
   }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .markdown h2 {
+    font-size: 1.5rem; /* Adjust font size for smaller screens */
   }
-  to {
-    transform: rotate(360deg);
+
+  .markdown h3 {
+    font-size: 1.25rem; /* Adjust font size for smaller screens */
+  }
+
+  .topics-title {
+    font-size: 2rem; /* Adjust topic title size for smaller screens */
+  }
+
+  .topic-title {
+    font-size: 1.25rem; /* Adjust topic title size for smaller screens */
   }
 }
