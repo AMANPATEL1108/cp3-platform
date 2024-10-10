@@ -4,9 +4,23 @@ import { useNavigate } from "react-router-dom";
 
 const Topics = () => {
   const [topics] = useState([
-    { name: "Array", _id: "array" },
-    { name: "Tree", _id: "tree" },
-    { name: "Linked List", _id: "linkedlist" },
+    { name: "Array", _id: "Arrays" },
+    { name: "Tree", _id: "Trees" },
+    { name: "Linked List", _id: "Linked List" },
+    { name: "Advanced Data Structures", _id: "Advanced Data Structures" },
+    { name: "Backtracking", _id: "Backtracking" },
+    { name: "Binary Search Tree", _id: "Binary Search Tree" },
+    { name: "Bit Manipulation", _id: "Bit Manipulation" },
+    { name: "Divide and Conquer", _id: "Divide and Conquer" },
+    { name: "Dynamic Programming", _id: "Dynamic Programing" },
+    { name: "Graphs", _id: "Graphs" },
+    { name: "Greedy Algorithms", _id: "Greedy Algorithem" },
+    { name: "Heap", _id: "Heap" },
+    { name: "Mathematical Algorithms", _id: "Mathematical Algorithms" },
+    { name: "Miscellaneous Algorithms", _id: "Miscellaneous Algorithms" },
+    { name: "Queue", _id: "Queue" },
+    { name: "Stacks", _id: "Stack" },
+    { name: "String Algorithms", _id: "String Algorithm" },
   ]);
 
   const navigate = useNavigate();
